@@ -19,8 +19,16 @@ class TodayListAdapter : RecyclerView.Adapter<TodayListAdapter.TodayListHolder>(
         val binding = FillerPopularBinding.bind(view)
         fun bind(item: TodayItems) {
             with(binding) {
-                Picasso.get().load(item.imgUrl).into(imPop)
-                tvTitle.text = item.title
+                Picasso.get().load(item.imgUrl).into(imPop)// Picasso облегчает загрузку изображений из различных источников, таких как URL, ресурсы, файлы и другие.
+                tvTitle.text = truncateText(item.title, 20)
+            }
+        }
+        //обрезает текст что бы он не привышал заданное кол-во символо, если привышает - (...)
+        private fun truncateText(originalText: String, maxLength: Int): String {
+            return if (originalText.length > maxLength) {
+                originalText.substring(0, maxLength) + "..."
+            } else {
+                originalText
             }
         }
     }
@@ -38,7 +46,7 @@ class TodayListAdapter : RecyclerView.Adapter<TodayListAdapter.TodayListHolder>(
     override fun getItemCount(): Int {
         return todayList.size
     }
-
+//служит для заполнения списка TodayItems
     fun setRecipes(recipes: List<TodayItems>) {
         todayList = ArrayList(recipes)
     }

@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_v_fp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="190dp"
+    android:layout_height="220dp"
+    android:layout_margin="3dp"
     app:cardCornerRadius="18dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,37 +14,39 @@
 
         <ImageView
             android:id="@+id/im_pop"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
             android:src="@drawable/example"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
             android:fontFamily="@font/abel"
-            android:text="Fried Bacon with Vegetables \n- Quick"
-            android:textSize="33sp"
+            android:maxLines="2"
+            android:text="Fried Bacon with Vegetables - Quick"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.202"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/im_pop"
             app:layout_constraintTop_toBottomOf="@+id/im_pop" />
 
         <ImageButton
             android:id="@+id/im_button_pop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
             android:layout_marginTop="110dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="7dp"
             android:background="#ffffff"
             android:src="@drawable/baseline_heart_broken_241"
             app:layout_constraintBottom_toBottomOf="parent"

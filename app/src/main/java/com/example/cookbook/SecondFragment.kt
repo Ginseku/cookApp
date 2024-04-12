@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.cookbook.adapters.FullListAdapter
 import com.example.cookbook.adapters.TodayListAdapter
 import com.example.cookbook.databinding.FragmentSecondBinding
 import com.example.cookbook.databinding.StartFragmentBinding
+import com.example.cookbook.models.FullListItems
 import com.example.cookbook.models.TodayItems
 import org.json.JSONObject
 import java.security.MessageDigest
@@ -24,7 +26,8 @@ const val API_KEY = "6f9b6671250249e793df7f41e9d98194"
 class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding
     private val todayList = ArrayList<TodayItems>()
-    private val adapter = TodayListAdapter()
+    private val adapterR = TodayListAdapter()
+    private val adapterF = FullListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,30 +39,40 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        dataFullRequest()
+        dataFullRequest()
         dataRandomRequest()
 
     }
 
-    private fun init(recipes: List<TodayItems>) {
+    //Тут мы вызываем и инициализируем наш viewbinding а так же adapter и прочее
+    private fun init(recipes: List<TodayItems>){
         Log.d("MyLog", "Init called with recipes: $recipes")
         val recyclerView: RecyclerView? = view?.findViewById(R.id.rv_pop_today)
-        recyclerView?.adapter = adapter
-        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        adapter.setRecipes(recipes)
-//        adapter.notifyDataSetChanged()
+        recyclerView?.adapter = adapterR
+        recyclerView?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        adapterR.setRecipes(recipes)
+    }
+    private fun init2(recipes: List<FullListItems>){
+        Log.d("MyLog", "Init called with recipes: $recipes")
+        val recyclerView: RecyclerView? = view?.findViewById(R.id.rv_all_list)
+        recyclerView?.adapter = adapterF
+        recyclerView?.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        adapterF.setRecipes(recipes)
     }
 
+    //получаем JSonObject из Api
     private fun dataFullRequest() {//Все блюда, вертикальный список
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
-                "number=10&" +
+                "number=4&" +
                 "apiKey=${API_KEY}"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
             Request.Method.GET,
             url,
             { result ->
-//                parseFoodData(result)
+                parseFoodDataFull(result)
                 Log.d("MyLog", "Request: $result")
             },
             { error ->
@@ -70,15 +83,39 @@ class SecondFragment : Fragment() {
 
     }
 
+    private fun parseFoodDataFull(result: String?) {
+        result?.let { // проверяем, что result не null
+            val mainObject = JSONObject(result)
+            val fullList = parseFull(mainObject,result)
+            init2(fullList)
+        }
+    }
+
+    private fun parseFull(mainObject: JSONObject, result: String): List<FullListItems> {
+        val list = ArrayList<FullListItems>()
+        val recipeArray = mainObject.getJSONArray("results")
+        for (i in 0 until recipeArray.length()) {
+            val ar = recipeArray[i] as JSONObject
+            val recipes = FullListItems(
+                ar.getInt("id"),
+                ar.getString("title"),
+                ar.getString("image")
+            )
+            list.add(recipes)
+        }
+        return list
+    }
+
+    //получаем JSonObject из Api
     private fun dataRandomRequest() { //Популярное сегодня
-        val url = "https://api.spoonacular.com/recipes/random?number=2&" +
+        val url = "https://api.spoonacular.com/recipes/random?number=3&" +
                 "apiKey=${API_KEY}"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
             Request.Method.GET,
             url,
             { result ->
-                parseFoodData(result)
+                parseFoodDataRandom(result)
                 Log.d("MyLog2", "Request: $result")
             },
             { error ->
@@ -87,33 +124,37 @@ class SecondFragment : Fragment() {
         )
         queue.add(request)
     }
-//Закончил на том что пытался добавить второй объект в ресайкл вью, и горизонтальный скролл пока что не очень успешно
-    private fun parseFoodData(result: String) {
+
+    //Сделано для удобного переиспользования кода
+    private fun parseFoodDataRandom(result: String) {
         val mainObject = JSONObject(result)
-        val randomList = listOf(parseRandom(mainObject, result))
+        val randomList = parseRandom(mainObject, result)
         init(randomList)
-        addRecipesToList(randomList)
+//        addRecipesToList(randomList) ???????
     }
 
-    private fun parseRandom(mainObject: JSONObject, result: String): TodayItems {
-//        val list = ArrayList<TodayItems>()
-        val recipeArray = JSONObject(result).getJSONArray("recipes")
-        val firstRecipe = recipeArray.getJSONObject(0)
-
-        val title = firstRecipe.getString("title")
-        val imageUrl = firstRecipe.getString("image")
-
-        Log.d("MyLog", "Parsed title: $title, Parsed image URL: $imageUrl")
-
-        return TodayItems(title, imageUrl)
-
+    //Обрабатываем JSonObject который получили из dataRandomRequest(), вытаскиваем из него название и картинку
+    private fun parseRandom(mainObject: JSONObject, result: String): List<TodayItems> {
+        val list = ArrayList<TodayItems>()
+        val recipeArray = mainObject.getJSONArray("recipes")
+        for (i in 0 until recipeArray.length()) {
+            val ar = recipeArray[i] as JSONObject
+            val recipes = TodayItems(
+                ar.getInt("id"),
+                ar.getString("title"),
+                ar.getString("image")
+            )
+            list.add(recipes)
+        }
+        return list
     }
 
-    private fun addRecipesToList(recipes: List<TodayItems>) {
-        // Добавить полученный список к существующему списку
-        todayList.addAll(recipes)
-        adapter.setRecipes(todayList)
-    }
+//    // Добавить полученный список к существующему списку ??????????
+//    private fun addRecipesToList(recipes: List<TodayItems>) {
+//        // Добавить полученный список к существующему списку
+//        todayList.addAll(recipes)
+//        adapter.setRecipes(todayList)
+//    }
 
 
 }

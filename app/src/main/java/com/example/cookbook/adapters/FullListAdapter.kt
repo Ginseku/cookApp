@@ -9,21 +9,32 @@ import com.example.cookbook.databinding.FillerListBinding
 import com.example.cookbook.databinding.FillerPopularBinding
 import com.example.cookbook.models.FullListItems
 import com.example.cookbook.models.TodayItems
+import com.squareup.picasso.Picasso
 
-class FullListAdapter: RecyclerView.Adapter<FullListAdapter.FullListHolder>() {
+class FullListAdapter : RecyclerView.Adapter<FullListAdapter.FullListHolder>() {
 
     var fullList = ArrayList<FullListItems>()
 
-    class FullListHolder(view: View): RecyclerView.ViewHolder(view) {
+    class FullListHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = FillerListBinding.bind(view)
-        fun bind(item: FullListItems) = with(binding){
-            imFullList.setImageResource(item.imgUrl)
-            tvTitleFullList.text = item.title
+
+        fun bind(item: FullListItems){
+            with(binding){
+                Picasso.get().load(item.imgUrlF).into(imFullList)
+                tvTitleFullList.text = truncateText(item.title, 20)
+            }
+        }
+        private fun truncateText(originalText: String, maxLength: Int): String {
+            return if (originalText.length > maxLength) {
+                originalText.substring(0, maxLength) + "..."
+            } else {
+                originalText
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FullListHolder {
-        val view =LayoutInflater.from(parent.context).inflate(R.layout.filler_list, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.filler_list, parent, false)
         return FullListHolder(view)
     }
 
@@ -33,5 +44,8 @@ class FullListAdapter: RecyclerView.Adapter<FullListAdapter.FullListHolder>() {
 
     override fun getItemCount(): Int {
         return fullList.size
+    }
+    fun setRecipes(recipes: List<FullListItems>) {
+        fullList = ArrayList(recipes)
     }
 }

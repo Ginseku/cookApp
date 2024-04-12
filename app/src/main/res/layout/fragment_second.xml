@@ -19,7 +19,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Popular today" />
+            android:paddingStart="20dp"
+            android:text="Popular today"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_see_all"
@@ -27,7 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="See all" />
+            android:paddingEnd="15dp"
+            android:text="See all"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -48,7 +53,10 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="All list" />
+            android:paddingStart="20sp"
+            android:text="All list"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
