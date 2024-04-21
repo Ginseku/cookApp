@@ -17,11 +17,9 @@ import com.android.volley.toolbox.Volley
 import com.example.cookbook.adapters.FullListAdapter
 import com.example.cookbook.adapters.TodayListAdapter
 import com.example.cookbook.databinding.FragmentSecondBinding
-import com.example.cookbook.databinding.StartFragmentBinding
 import com.example.cookbook.models.FullListItems
 import com.example.cookbook.models.TodayItems
 import org.json.JSONObject
-import java.security.MessageDigest
 
 const val API_KEY = "6f9b6671250249e793df7f41e9d98194"
 
