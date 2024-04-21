@@ -14,10 +14,22 @@
             android:id="@+id/action_start_fragment_to_second_fragment2"
             app:destination="@id/second_fragment" />
     </fragment>
+
     <fragment
         android:id="@+id/second_fragment"
         android:name="com.example.cookbook.SecondFragment"
         android:label="page_two_fragment"
-        tools:layout="@layout/fragment_second" />
+        tools:layout="@layout/fragment_second" >
+        <action
+            android:id="@+id/action_second_fragment_to_allListFragment"
+            app:destination="@id/allListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allListFragment"
+        android:name="com.example.cookbook.AllListFragment"
+        android:label="AllListFragment"
+        tools:layout="@layout/all_list_fragment"
+        />
 
 </navigation>

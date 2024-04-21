@@ -4,14 +4,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cookbook.Listener
 import com.example.cookbook.R
 import com.example.cookbook.databinding.FillerPopularBinding
 import com.example.cookbook.databinding.FragmentSecondBinding
 import com.example.cookbook.models.TodayItems
 import com.squareup.picasso.Picasso
 
-class TodayListAdapter : RecyclerView.Adapter<TodayListAdapter.TodayListHolder>() {
+class TodayListAdapter(private val listener: Listener) : RecyclerView.Adapter<TodayListAdapter.TodayListHolder>() {
 
     var todayList = ArrayList<TodayItems>()
 
@@ -41,6 +43,9 @@ class TodayListAdapter : RecyclerView.Adapter<TodayListAdapter.TodayListHolder>(
     override fun onBindViewHolder(holder: TodayListHolder, position: Int) {
         val item = todayList[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener {
+            listener.onClick(item.id)
+        }
     }
 
     override fun getItemCount(): Int {

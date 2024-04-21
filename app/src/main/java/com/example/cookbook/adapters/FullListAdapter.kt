@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cookbook.Listener
 import com.example.cookbook.R
 import com.example.cookbook.databinding.FillerListBinding
 import com.example.cookbook.databinding.FillerPopularBinding
@@ -11,7 +12,7 @@ import com.example.cookbook.models.FullListItems
 import com.example.cookbook.models.TodayItems
 import com.squareup.picasso.Picasso
 
-class FullListAdapter : RecyclerView.Adapter<FullListAdapter.FullListHolder>() {
+class FullListAdapter(private val listener: Listener) : RecyclerView.Adapter<FullListAdapter.FullListHolder>() {
 
     var fullList = ArrayList<FullListItems>()
 
@@ -21,7 +22,7 @@ class FullListAdapter : RecyclerView.Adapter<FullListAdapter.FullListHolder>() {
         fun bind(item: FullListItems){
             with(binding){
                 Picasso.get().load(item.imgUrlF).into(imFullList)
-                tvTitleFullList.text = truncateText(item.title, 20)
+                tvTitleFullList.text = truncateText(item.title, 40)
             }
         }
         private fun truncateText(originalText: String, maxLength: Int): String {
@@ -39,7 +40,11 @@ class FullListAdapter : RecyclerView.Adapter<FullListAdapter.FullListHolder>() {
     }
 
     override fun onBindViewHolder(holder: FullListHolder, position: Int) {
-        holder.bind(fullList[position])
+        val item = fullList[position]
+        holder.bind(item)
+        holder.itemView.setOnClickListener {
+            listener.onClick(item.id)
+        }
     }
 
     override fun getItemCount(): Int {

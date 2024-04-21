@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
@@ -23,11 +25,11 @@ import java.security.MessageDigest
 
 const val API_KEY = "6f9b6671250249e793df7f41e9d98194"
 
-class SecondFragment : Fragment() {
+class SecondFragment : Fragment(), Listener {
     private lateinit var binding: FragmentSecondBinding
     private val todayList = ArrayList<TodayItems>()
-    private val adapterR = TodayListAdapter()
-    private val adapterF = FullListAdapter()
+    private val adapterR = TodayListAdapter(this)
+    private val adapterF = FullListAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,11 +43,12 @@ class SecondFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         dataFullRequest()
         dataRandomRequest()
+        moreButton()
 
     }
 
     //Тут мы вызываем и инициализируем наш viewbinding а так же adapter и прочее
-    private fun init(recipes: List<TodayItems>){
+    private fun init(recipes: List<TodayItems>) {
         Log.d("MyLog", "Init called with recipes: $recipes")
         val recyclerView: RecyclerView? = view?.findViewById(R.id.rv_pop_today)
         recyclerView?.adapter = adapterR
@@ -53,19 +56,20 @@ class SecondFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapterR.setRecipes(recipes)
     }
-    private fun init2(recipes: List<FullListItems>){
+
+    private fun init2(recipes: List<FullListItems>) {
         Log.d("MyLog", "Init called with recipes: $recipes")
         val recyclerView: RecyclerView? = view?.findViewById(R.id.rv_all_list)
         recyclerView?.adapter = adapterF
         recyclerView?.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapterF.setRecipes(recipes)
     }
 
     //получаем JSonObject из Api
     private fun dataFullRequest() {//Все блюда, вертикальный список
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
-                "number=4&" +
+                "number=7&" +
                 "apiKey=${API_KEY}"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
@@ -86,7 +90,7 @@ class SecondFragment : Fragment() {
     private fun parseFoodDataFull(result: String?) {
         result?.let { // проверяем, что result не null
             val mainObject = JSONObject(result)
-            val fullList = parseFull(mainObject,result)
+            val fullList = parseFull(mainObject, result)
             init2(fullList)
         }
     }
@@ -149,12 +153,18 @@ class SecondFragment : Fragment() {
         return list
     }
 
-//    // Добавить полученный список к существующему списку ??????????
-//    private fun addRecipesToList(recipes: List<TodayItems>) {
-//        // Добавить полученный список к существующему списку
-//        todayList.addAll(recipes)
-//        adapter.setRecipes(todayList)
-//    }
+    override fun onClick(itemId: Int) {
+        Log.d("ItemClick", "Item clicked with id: $itemId")
+    }
+
+    private fun moreButton() {
+        val controler = findNavController()
+        val b1 = view?.findViewById<Button>(R.id.but_more)
+        b1?.setOnClickListener{
+            controler.navigate(R.id.allListFragment)
+        }
+    }
+
 
 
 }
