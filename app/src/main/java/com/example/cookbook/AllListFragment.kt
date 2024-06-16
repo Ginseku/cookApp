@@ -7,21 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.cookbook.adapters.FullListAdapter
+import com.example.cookbook.adapters.VpAdapter
 import com.example.cookbook.databinding.AllListFragmentBinding
 import com.example.cookbook.models.FullListItems
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONObject
-import kotlin.math.log
 
-class AllListFragment: Fragment(), Listener{
+class AllListFragment : Fragment(), Listener {
     private lateinit var binding: AllListFragmentBinding
-    private val adapterF = FullListAdapter(this)
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,22 +36,25 @@ class AllListFragment: Fragment(), Listener{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        backBut()
+        viewPager = binding.viewPager
+        tabLayout = binding.tabLayout
+
         dataFullRequest()
+        backBut()
     }
 
-    private fun init2(recipes: List<FullListItems>) {
-        Log.d("MyLog", "Init called with recipes: $recipes")
-        val recyclerView: RecyclerView? = view?.findViewById(R.id.rv_all_list2)
-        recyclerView?.adapter = adapterF
-        recyclerView?.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapterF.setRecipes(recipes)
+    private fun init(pages: List<List<FullListItems>>) {
+        Log.d("MyLog", "Init called with pages: $pages")
+        viewPager.adapter = VpAdapter(activity as FragmentActivity, pages, this)
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = (position + 1).toString()
+        }.attach()
     }
 
-    private fun dataFullRequest() {//Все блюда, вертикальный список
+    private fun dataFullRequest() {
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
-                "number=10&" +
+                "number=100&" +
                 "apiKey=${API_KEY}"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
@@ -63,14 +69,14 @@ class AllListFragment: Fragment(), Listener{
             }
         )
         queue.add(request)
-
     }
 
     private fun parseFoodDataFull(result: String?) {
-        result?.let { // проверяем, что result не null
+        result?.let {
             val mainObject = JSONObject(result)
             val fullList = parseFull(mainObject, result)
-            init2(fullList)
+            val pages = fullList.chunked(5) // сколько будет элементов на странице
+            init(pages)
         }
     }
 
@@ -90,10 +96,10 @@ class AllListFragment: Fragment(), Listener{
     }
 
     private fun backBut() {
-        val controler = findNavController()
+        val controller = findNavController()
         val b1 = view?.findViewById<Button>(R.id.but_back_ALF)
-        b1?.setOnClickListener{
-            controler.navigate(R.id.second_fragment)
+        b1?.setOnClickListener {
+            controller.navigate(R.id.second_fragment)
         }
     }
 
