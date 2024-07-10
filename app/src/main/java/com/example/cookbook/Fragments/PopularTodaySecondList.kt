@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.cookbook.R
 
 //страница после клика по картинке из списка рандомных(популярных сегодня) рецептов
-class PopuarTodaySecondList : Fragment() {
+class PopularTodaySecondList : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
