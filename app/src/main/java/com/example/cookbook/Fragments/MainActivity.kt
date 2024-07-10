@@ -1,8 +1,9 @@
-package com.example.cookbook
+package com.example.cookbook.Fragments
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import com.example.cookbook.Listener
+import com.example.cookbook.R
 
 class MainActivity : AppCompatActivity(), Listener {
     override fun onCreate(savedInstanceState: Bundle?) {

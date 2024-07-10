@@ -1,4 +1,4 @@
-package com.example.cookbook
+package com.example.cookbook.Fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +13,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.cookbook.adapters.FullListAdapter
+import com.example.cookbook.Listener
+import com.example.cookbook.R
 import com.example.cookbook.adapters.VpAdapter
 import com.example.cookbook.databinding.AllListFragmentBinding
 import com.example.cookbook.models.FullListItems
@@ -55,7 +56,7 @@ class AllListFragment : Fragment(), Listener {
     private fun dataFullRequest() {
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
                 "number=100&" +
-                "apiKey=${API_KEY}"
+                "apiKey=$API_KEY"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
             Request.Method.GET,

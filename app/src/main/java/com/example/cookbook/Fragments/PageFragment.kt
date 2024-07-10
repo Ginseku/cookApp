@@ -1,4 +1,4 @@
-package com.example.cookbook
+package com.example.cookbook.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cookbook.Listener
+import com.example.cookbook.R
 import com.example.cookbook.adapters.FullListAdapter
 import com.example.cookbook.models.FullListItems
 
