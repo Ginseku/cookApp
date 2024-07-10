@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class PopuarTodaySecondList : Fragment() {
+class PopularTodaySecondList : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
