@@ -1,4 +1,4 @@
-package com.example.cookbook.adapters
+package com.example.cookbook
 
 import android.view.View
 import android.widget.Button

@@ -1,11 +1,10 @@
-package com.example.cookbook
+package com.example.cookbook.Fragments
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.findNavController
@@ -13,9 +12,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.cookbook.BackButton
 import com.example.cookbook.Fragments.API_KEY
-import com.example.cookbook.adapters.BackButton
-import com.example.cookbook.adapters.FullListAdapter
+import com.example.cookbook.Listener
+import com.example.cookbook.R
 import com.example.cookbook.adapters.VpAdapter
 import com.example.cookbook.databinding.AllListFragmentBinding
 import com.example.cookbook.models.FullListItems
@@ -42,7 +42,7 @@ class AllListFragment : Fragment(), Listener {
         tabLayout = binding.tabLayout
 
         dataFullRequest()
-        BackButton.setupButtonNavigation(view,findNavController(),R.id.but_back_ALF, R.id.second_fragment )
+        BackButton.setupButtonNavigation(view,findNavController(), R.id.but_back_ALF, R.id.second_fragment )
     }
 
     private fun init(pages: List<List<FullListItems>>) {
