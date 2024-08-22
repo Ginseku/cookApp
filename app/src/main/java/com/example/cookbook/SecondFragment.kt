@@ -20,7 +20,7 @@ import com.example.cookbook.databinding.FragmentSecondBinding
 import com.example.cookbook.models.FullListItems
 import com.example.cookbook.models.TodayItems
 import org.json.JSONObject
-
+//Вторая страница
 const val API_KEY = "6f9b6671250249e793df7f41e9d98194"
 
 class SecondFragment : Fragment(), Listener {
@@ -42,6 +42,7 @@ class SecondFragment : Fragment(), Listener {
         dataFullRequest()
         dataRandomRequest()
         moreButton()
+        secScreenButton()
 
     }
 
@@ -109,7 +110,7 @@ class SecondFragment : Fragment(), Listener {
     }
 
     //получаем JSonObject из Api
-    private fun dataRandomRequest() { //Популярное сегодня
+    private fun dataRandomRequest() { //Популярное сегодня(горизонт список)
         val url = "https://api.spoonacular.com/recipes/random?number=3&" +
                 "apiKey=${API_KEY}"
         val queue = Volley.newRequestQueue(context)
@@ -160,6 +161,13 @@ class SecondFragment : Fragment(), Listener {
         val b1 = view?.findViewById<Button>(R.id.but_more)
         b1?.setOnClickListener{
             controler.navigate(R.id.allListFragment)
+        }
+    }
+    private fun secScreenButton() {
+        val controler = findNavController()
+        val b2 = view?.findViewById<Button>(R.id.button_sec_sreen)
+        b2?.setOnClickListener{
+            controler.navigate(R.id.popularTodaySecondList)
         }
     }
 

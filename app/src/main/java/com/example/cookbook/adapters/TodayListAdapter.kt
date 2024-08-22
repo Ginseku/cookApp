@@ -54,5 +54,6 @@ class TodayListAdapter(private val listener: Listener) : RecyclerView.Adapter<To
 //служит для заполнения списка TodayItems
     fun setRecipes(recipes: List<TodayItems>) {
         todayList = ArrayList(recipes)
+        notifyDataSetChanged()
     }
 }
