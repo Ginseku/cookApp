@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/second_bg_color"
         android:orientation="vertical"
-        tools:context=".SecondFragment">
+        tools:context=".Fragments.SecondFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

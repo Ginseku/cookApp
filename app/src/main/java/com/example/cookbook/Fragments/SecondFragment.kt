@@ -1,4 +1,4 @@
-package com.example.cookbook
+package com.example.cookbook.Fragments
 
 //import android.app.Fragment
 import android.os.Bundle
@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.cookbook.Listener
+import com.example.cookbook.R
 import com.example.cookbook.adapters.FullListAdapter
 import com.example.cookbook.adapters.TodayListAdapter
 import com.example.cookbook.databinding.FragmentSecondBinding
@@ -69,7 +71,7 @@ class SecondFragment : Fragment(), Listener {
     private fun dataFullRequest() {//Все блюда, вертикальный список
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
                 "number=7&" +
-                "apiKey=${API_KEY}"
+                "apiKey=$API_KEY"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
             Request.Method.GET,
@@ -112,7 +114,7 @@ class SecondFragment : Fragment(), Listener {
     //получаем JSonObject из Api
     private fun dataRandomRequest() { //Популярное сегодня(горизонт список)
         val url = "https://api.spoonacular.com/recipes/random?number=3&" +
-                "apiKey=${API_KEY}"
+                "apiKey=$API_KEY"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
             Request.Method.GET,

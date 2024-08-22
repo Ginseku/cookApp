@@ -1,4 +1,4 @@
-package com.example.cookbook
+package com.example.cookbook.Fragments
 
 import android.os.Bundle
 import com.bumptech.glide.Glide
@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cookbook.adapters.BackButton
+import com.example.cookbook.BackButton
+import com.example.cookbook.R
+import com.example.cookbook.RetrofitClient
 import com.example.cookbook.adapters.CookingReceptAdapter
 import com.example.cookbook.databinding.FragmentPopularTodaySecondScreenBinding
 import com.example.cookbook.models.InformationInsideView
@@ -18,8 +20,6 @@ import com.example.cookbook.models.IngridientsInside
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 //Страница которая открывается после нажатия на элемент ресайкл вью(Спсок популярных блюд сегодня)
 class PopularTodaySecondList : Fragment() {
@@ -39,7 +39,12 @@ class PopularTodaySecondList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        BackButton.setupButtonNavigation(view,findNavController(),R.id.back_but, R.id.second_fragment )
+        BackButton.setupButtonNavigation(
+            view,
+            findNavController(),
+            R.id.back_but,
+            R.id.second_fragment
+        )
     }
     private fun init(data: List<IngridientsInside>) {
         Log.d("MyLog", "Init called with recipes: $data")
