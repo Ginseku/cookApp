@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.cookbook.R
 import com.example.cookbook.databinding.StartFragmentBinding
 
-
+//Начальная страница
 class Start_fragment : Fragment() {
     private lateinit var binding: StartFragmentBinding
 

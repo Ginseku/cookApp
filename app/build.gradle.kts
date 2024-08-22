@@ -53,4 +53,12 @@ dependencies {
     // Kotlin
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
+    //retrofit
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation ("com.squareup.retrofit2:retrofit:(2.11.0)")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0") // или Moshi
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation ("org.jsoup:jsoup:1.15.3") // Для парсинга HTML
+    implementation("com.google.code.gson:gson:2.10")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
 }

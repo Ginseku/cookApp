@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_second_fragment_to_allListFragment"
             app:destination="@id/allListFragment" />
+        <action
+            android:id="@+id/action_second_fragment_to_popularTodaySecondList"
+            app:destination="@id/popularTodaySecondList" />
     </fragment>
 
     <fragment
@@ -31,5 +34,10 @@
         android:label="AllListFragment"
         tools:layout="@layout/all_list_fragment"
         />
+    <fragment
+        android:id="@+id/popularTodaySecondList"
+        android:name="com.example.cookbook.PopularTodaySecondList"
+        android:label="PopularTodaySecondList"
+        tools:layout="@layout/fragment_popular_today_second_screen"/>
 
 </navigation>

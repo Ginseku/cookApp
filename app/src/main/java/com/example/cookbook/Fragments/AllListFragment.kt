@@ -1,4 +1,4 @@
-package com.example.cookbook.Fragments
+package com.example.cookbook
 
 import android.os.Bundle
 import android.util.Log
@@ -13,15 +13,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.cookbook.Listener
-import com.example.cookbook.R
+import com.example.cookbook.adapters.FullListAdapter
 import com.example.cookbook.adapters.VpAdapter
 import com.example.cookbook.databinding.AllListFragmentBinding
 import com.example.cookbook.models.FullListItems
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONObject
-
+//Страница которая идет по нажатию на кнопку"MORE" в полном списке
 class AllListFragment : Fragment(), Listener {
     private lateinit var binding: AllListFragmentBinding
     private lateinit var viewPager: ViewPager2
@@ -41,7 +40,7 @@ class AllListFragment : Fragment(), Listener {
         tabLayout = binding.tabLayout
 
         dataFullRequest()
-        backBut()
+        BackButton.setupButtonNavigation(view,findNavController(),R.id.but_back_ALF, R.id.second_fragment )
     }
 
     private fun init(pages: List<List<FullListItems>>) {
@@ -56,7 +55,7 @@ class AllListFragment : Fragment(), Listener {
     private fun dataFullRequest() {
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
                 "number=100&" +
-                "apiKey=$API_KEY"
+                "apiKey=${API_KEY}"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
             Request.Method.GET,
@@ -94,14 +93,6 @@ class AllListFragment : Fragment(), Listener {
             list.add(recipes)
         }
         return list
-    }
-
-    private fun backBut() {
-        val controller = findNavController()
-        val b1 = view?.findViewById<Button>(R.id.but_back_ALF)
-        b1?.setOnClickListener {
-            controller.navigate(R.id.second_fragment)
-        }
     }
 
     override fun onClick(itemId: Int) {
