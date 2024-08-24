@@ -1,4 +1,4 @@
-package com.example.cookbook.Fragments
+package com.example.cookbook
 
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +13,6 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.cookbook.BackButton
-import com.example.cookbook.Fragments.API_KEY
 import com.example.cookbook.Listener
 import com.example.cookbook.R
 import com.example.cookbook.adapters.VpAdapter
@@ -42,7 +41,12 @@ class AllListFragment : Fragment(), Listener {
         tabLayout = binding.tabLayout
 
         dataFullRequest()
-        BackButton.setupButtonNavigation(view,findNavController(), R.id.but_back_ALF, R.id.second_fragment )
+        BackButton.setupButtonNavigation(
+            view,
+            findNavController(),
+            R.id.but_back_ALF,
+            R.id.second_fragment
+        )
     }
 
     private fun init(pages: List<List<FullListItems>>) {
@@ -57,7 +61,7 @@ class AllListFragment : Fragment(), Listener {
     private fun dataFullRequest() {
         val url = "https://api.spoonacular.com/recipes/complexSearch?" +
                 "number=100&" +
-                "apiKey=${API_KEY}"
+                "apiKey=$API_KEY"
         val queue = Volley.newRequestQueue(context)
         val request = StringRequest(
             Request.Method.GET,

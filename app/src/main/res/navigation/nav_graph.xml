@@ -36,7 +36,7 @@
         />
     <fragment
         android:id="@+id/popularTodaySecondList"
-        android:name="com.example.cookbook.PopularTodaySecondList"
+        android:name="com.example.cookbook.Fragments.PopularTodaySecondList"
         android:label="PopularTodaySecondList"
         tools:layout="@layout/fragment_popular_today_second_screen"/>
 
