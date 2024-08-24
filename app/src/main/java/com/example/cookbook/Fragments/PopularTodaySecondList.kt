@@ -45,6 +45,7 @@ class PopularTodaySecondList : Fragment() {
             findNavController(),
             R.id.back_but,
             R.id.second_fragment
+
         )
     }
     private fun init(data: List<IngridientsInside>) {
