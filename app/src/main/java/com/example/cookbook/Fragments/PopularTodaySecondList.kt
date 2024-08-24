@@ -11,12 +11,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-<<<<<<<< HEAD:app/src/main/java/com/example/cookbook/Fragments/PopularTodaySecondList.kt
 import com.example.cookbook.BackButton
 import com.example.cookbook.R
 import com.example.cookbook.RetrofitClient
-========
->>>>>>>> Feature2(second_screen_inside):app/src/main/java/com/example/cookbook/PopularTodaySecondList.kt
 import com.example.cookbook.adapters.CookingReceptAdapter
 import com.example.cookbook.databinding.FragmentPopularTodaySecondScreenBinding
 import com.example.cookbook.models.InformationInsideView

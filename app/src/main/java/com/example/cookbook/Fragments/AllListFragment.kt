@@ -1,4 +1,4 @@
-package com.example.cookbook
+package com.example.cookbook.Fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +13,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.cookbook.BackButton
+import com.example.cookbook.Fragments.API_KEY
 import com.example.cookbook.Listener
 import com.example.cookbook.R
 import com.example.cookbook.adapters.VpAdapter
