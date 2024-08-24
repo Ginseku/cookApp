@@ -1,6 +1,7 @@
 package com.example.cookbook.Fragments
 
 import android.os.Bundle
+import org.jsoup.Jsoup
 import com.bumptech.glide.Glide
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -68,10 +69,14 @@ class PopularTodaySecondList : Fragment() {
                     if (response.isSuccessful) {
                         val recipe = response.body()
                         recipe?.let {
-                            binding.title.text = it.title
+                            //Cleaning fields from html's tags
+                            val cleanTitle = Jsoup.parse(it.title).text()
+                            val cleanSummary = Jsoup.parse(it.summary).text()
+
+                            binding.title.text = cleanTitle
                             binding.cookingTime.text = getString(R.string.cooking_time_f_p_t_s_s, it.readyInMinutes)
                             binding.servering.text = getString(R.string.servering_f_p_t_s_s, it.servings)
-                            binding.summary.text = it.summary
+                            binding.summary.text = cleanSummary
 
                             // Загрузка изображения с использованием Glide
                             Glide.with(this@PopularTodaySecondList)
@@ -82,10 +87,8 @@ class PopularTodaySecondList : Fragment() {
                 }
 
                 override fun onFailure(call: Call<InformationInsideView>, t: Throwable) {
-
+                    // Обработка ошибки
                 }
-
-
             })
 
     }
