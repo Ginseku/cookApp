@@ -1,4 +1,4 @@
-package com.example.cookbook.adapters
+package com.example.cookbook
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

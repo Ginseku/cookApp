@@ -3,5 +3,5 @@ package com.example.cookbook.models
 data class IngridientsInside(
     val originalName: String,
     val amount: Int,
-    val unitShort: String
+    val unit: String
 )

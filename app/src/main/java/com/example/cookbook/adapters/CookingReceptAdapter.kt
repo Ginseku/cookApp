@@ -1,16 +1,14 @@
 package com.example.cookbook.adapters
 //это страница после нажатия на элемент из списка сверху( популярные рецепты)
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cookbook.R
 import com.example.cookbook.databinding.FillerIngridientsBinding
-import com.example.cookbook.databinding.FragmentPopularTodaySecondScreenBinding
 import com.example.cookbook.models.IngridientsInside
-import com.example.cookbook.models.InsideRedyToCookRecept
-import com.example.cookbook.models.TodayListInsideRecipte
 
 class CookingReceptAdapter: RecyclerView.Adapter<CookingReceptAdapter.CookingReceptHolder>() {
     var list = ArrayList<IngridientsInside>()
@@ -19,7 +17,7 @@ class CookingReceptAdapter: RecyclerView.Adapter<CookingReceptAdapter.CookingRec
         fun bind(item: IngridientsInside) = with(binding){
             ammount.text = item.amount.toString()
             originalName.text = item.originalName
-            unitShorts.text = item.unitShort
+            unitShorts.text = item.unit
 
         }
     }

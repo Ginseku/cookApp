@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cookbook.BackButton
+import com.example.cookbook.MovingButton
 import com.example.cookbook.R
 import com.example.cookbook.RetrofitClient
 import com.example.cookbook.adapters.CookingReceptAdapter
@@ -40,7 +40,7 @@ class PopularTodaySecondList : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        BackButton.setupButtonNavigation(
+        MovingButton.setupButtonNavigation(
             view,
             findNavController(),
             R.id.back_but,

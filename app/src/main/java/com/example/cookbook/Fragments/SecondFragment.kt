@@ -15,6 +15,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.cookbook.Listener
+import com.example.cookbook.MovingButton
 import com.example.cookbook.R
 import com.example.cookbook.adapters.FullListAdapter
 import com.example.cookbook.adapters.TodayListAdapter
@@ -43,8 +44,18 @@ class SecondFragment : Fragment(), Listener {
         super.onViewCreated(view, savedInstanceState)
         dataFullRequest()
         dataRandomRequest()
-        moreButton()
-        secScreenButton()
+        MovingButton.setupButtonNavigation(
+            view,
+            findNavController(),
+            R.id.button_sec_sreen,
+            R.id.popularTodaySecondList
+        )
+        MovingButton.setupButtonNavigation(
+            view,
+            findNavController(),
+            R.id.but_more,
+            R.id.allListFragment
+        )
 
     }
 
@@ -130,7 +141,7 @@ class SecondFragment : Fragment(), Listener {
         queue.add(request)
     }
 
-    //Сделано для удобного переиспользования кода
+    //Сделано для переиспользования кода
     private fun parseFoodDataRandom(result: String) {
         val mainObject = JSONObject(result)
         val randomList = parseRandom(mainObject, result)
@@ -157,22 +168,5 @@ class SecondFragment : Fragment(), Listener {
     override fun onClick(itemId: Int) {
         Log.d("ItemClick", "Item clicked with id: $itemId")
     }
-
-    private fun moreButton() {
-        val controler = findNavController()
-        val b1 = view?.findViewById<Button>(R.id.but_more)
-        b1?.setOnClickListener{
-            controler.navigate(R.id.allListFragment)
-        }
-    }
-    private fun secScreenButton() {
-        val controler = findNavController()
-        val b2 = view?.findViewById<Button>(R.id.button_sec_sreen)
-        b2?.setOnClickListener{
-            controler.navigate(R.id.popularTodaySecondList)
-        }
-    }
-
-
 
 }

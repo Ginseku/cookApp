@@ -1,5 +1,6 @@
 package com.example.cookbook.adapters
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,7 @@ class TodayListAdapter(private val listener: Listener) : RecyclerView.Adapter<To
         return todayList.size
     }
 //служит для заполнения списка TodayItems
+    @SuppressLint("NotifyDataSetChanged")
     fun setRecipes(recipes: List<TodayItems>) {
         todayList = ArrayList(recipes)
         notifyDataSetChanged()

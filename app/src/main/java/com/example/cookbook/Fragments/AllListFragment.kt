@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.cookbook.BackButton
+import com.example.cookbook.MovingButton
 import com.example.cookbook.Listener
 import com.example.cookbook.R
 import com.example.cookbook.adapters.VpAdapter
@@ -41,7 +41,7 @@ class AllListFragment : Fragment(), Listener {
         tabLayout = binding.tabLayout
 
         dataFullRequest()
-        BackButton.setupButtonNavigation(
+        MovingButton.setupButtonNavigation(
             view,
             findNavController(),
             R.id.but_back_ALF,
