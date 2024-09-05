@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ import retrofit2.Response
 class PopularTodaySecondList : Fragment() {
 
     private val apiKey = "6f9b6671250249e793df7f41e9d98194"
+    private var isDataLoaded = false
 
     lateinit var binding: FragmentPopularTodaySecondScreenBinding
     private val adapter = CookingReceptAdapter()
@@ -37,17 +39,8 @@ class PopularTodaySecondList : Fragment() {
         binding = FragmentPopularTodaySecondScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        MovingButton.setupButtonNavigation(
-            view,
-            findNavController(),
-            R.id.back_but,
-            R.id.second_fragment
 
-        )
-    }
     private fun init(data: List<IngridientsInside>) {
         Log.d("MyLog", "Init called with recipes: $data")
         val recyclerView: RecyclerView? = view?.findViewById(R.id.rv_sec_sreen)
@@ -56,18 +49,40 @@ class PopularTodaySecondList : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter.setRecept(data)
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val recipeId = 639865
+//        binding.progressBar.visibility = View.VISIBLE // Показываем прогресс бар
+//        binding.secScreenLayout.visibility = View.GONE
 
+        parentFragmentManager.setFragmentResultListener("request_key", this) { _, bundle ->
+            val id = bundle.getString("id_key")
+            id?.let {
+                fetchRecipeInformation(it.toInt()) // Загружаем данные
+            }
+        }
+        MovingButton.setupButtonNavigation(
+            view,
+            findNavController(),
+            R.id.back_but,
+            R.id.second_fragment
+        )
+    }
+
+    fun fetchRecipeInformation(recipeId: Int) {
+        Log.d("API_CALL", "Запрос на получение информации о рецепте")
         val apiService = RetrofitClient.instance
-        RetrofitClient.instance.getFoodInformation(recipeId, apiKey)
+        apiService.getFoodInformation(recipeId, apiKey)
             .enqueue(object : Callback<InformationInsideView> {
                 override fun onResponse(
                     call: Call<InformationInsideView>, response: Response<InformationInsideView>
                 ) {
+                    Log.d("API_CALL", "Ответ от API получен")
+                    binding.progressBar.visibility = View.GONE // Скрываем прогресс бар
+                    binding.secScreenLayout.visibility = View.VISIBLE
+
                     if (response.isSuccessful) {
+                        Log.d("API_CALL", "Ответ успешный: ${response.body()}")
                         val recipe = response.body()
                         recipe?.let {
                             //Cleaning fields from html's tags
@@ -75,24 +90,30 @@ class PopularTodaySecondList : Fragment() {
                             val cleanSummary = Jsoup.parse(it.summary).text()
 
                             binding.title.text = cleanTitle
-                            binding.cookingTime.text = getString(R.string.cooking_time_f_p_t_s_s, it.readyInMinutes)
-                            binding.servering.text = getString(R.string.servering_f_p_t_s_s, it.servings)
+                            binding.cookingTime.text =
+                                getString(R.string.cooking_time_f_p_t_s_s, it.readyInMinutes)
+                            binding.servering.text =
+                                getString(R.string.servering_f_p_t_s_s, it.servings)
                             binding.summary.text = cleanSummary
 
                             // Загрузка изображения с использованием Glide
                             Glide.with(this@PopularTodaySecondList)
                                 .load(it.image)
                                 .into(binding.productImage)
+
                         }
+                    }else {
+                        Log.d("API_CALL", "Ошибка ответа: ${response.errorBody()?.string()}")
                     }
                 }
 
                 override fun onFailure(call: Call<InformationInsideView>, t: Throwable) {
-                    // Обработка ошибки
-                }
+                    Log.e("API_CALL", "Ошибка запроса: ${t.message}")
+                    binding.progressBar.visibility = View.GONE                }
             })
 
     }
+
 
 }
 

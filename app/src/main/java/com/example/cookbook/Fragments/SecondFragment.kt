@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,8 @@ import com.example.cookbook.databinding.FragmentSecondBinding
 import com.example.cookbook.models.FullListItems
 import com.example.cookbook.models.TodayItems
 import org.json.JSONObject
+import java.util.SortedMap
+
 //Вторая страница
 const val API_KEY = "6f9b6671250249e793df7f41e9d98194"
 
@@ -40,24 +43,30 @@ class SecondFragment : Fragment(), Listener {
         return binding.root
     }
 
+    private fun sendIdToAnotherFragment(id: String) {
+        val result = Bundle().apply {
+            putString("id_key", id)
+        }
+        parentFragmentManager.setFragmentResult("request_key", result)
+
+    }
+    // Вызов метода отправки ID, когда это необходимо
+    // sendIdToAnotherFragment("your_id_here")
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataFullRequest()
         dataRandomRequest()
-        MovingButton.setupButtonNavigation(
-            view,
-            findNavController(),
-            R.id.button_sec_sreen,
-            R.id.popularTodaySecondList
-        )
+
         MovingButton.setupButtonNavigation(
             view,
             findNavController(),
             R.id.but_more,
             R.id.allListFragment
         )
-
     }
+
+
 
     //Тут мы вызываем и инициализируем наш viewbinding а так же adapter и прочее
     private fun init(recipes: List<TodayItems>) {
@@ -67,6 +76,7 @@ class SecondFragment : Fragment(), Listener {
         recyclerView?.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         adapterR.setRecipes(recipes)
+
     }
 
     private fun init2(recipes: List<FullListItems>) {
@@ -167,6 +177,10 @@ class SecondFragment : Fragment(), Listener {
 
     override fun onClick(itemId: Int) {
         Log.d("ItemClick", "Item clicked with id: $itemId")
+        sendIdToAnotherFragment(itemId.toString())
+        findNavController().navigate(R.id.popularTodaySecondList)
+
     }
+
 
 }
