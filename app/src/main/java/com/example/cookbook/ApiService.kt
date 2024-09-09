@@ -10,5 +10,5 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("recipes/{id}/information")
-    fun getFoodInformation(@Path("id") id: Int, @Query("apiKey") apikey: String): Call<InformationInsideView>
+    suspend fun getFoodInformation(@Path("id") id: Int, @Query("apiKey") apikey: String): InformationInsideView
 }

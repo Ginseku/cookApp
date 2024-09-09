@@ -6,6 +6,6 @@ data class InformationInsideView(
     val readyInMinutes: Int,
     val servings: Int,
     val summary: String,
-    val image: String
-
+    val image: String,
+    val extendedIngredients: List<IngridientsInside>
 )

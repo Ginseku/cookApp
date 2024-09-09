@@ -178,7 +178,10 @@ class SecondFragment : Fragment(), Listener {
     override fun onClick(itemId: Int) {
         Log.d("ItemClick", "Item clicked with id: $itemId")
         sendIdToAnotherFragment(itemId.toString())
+        Log.d("ItemClick", "ID sended: $itemId")
+        Log.d("Navigation", "Moving to the next fragment")
         findNavController().navigate(R.id.popularTodaySecondList)
+        Log.d("Navigation", "Navigation ended")
 
     }
 

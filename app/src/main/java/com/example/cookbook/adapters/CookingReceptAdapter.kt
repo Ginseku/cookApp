@@ -23,7 +23,7 @@ class CookingReceptAdapter: RecyclerView.Adapter<CookingReceptAdapter.CookingRec
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CookingReceptHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_popular_today_second_screen, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.filler_ingridients, parent, false)
         return CookingReceptHolder(view)
     }
 
