@@ -6,7 +6,7 @@ import android.os.Parcelable
 data class FullListItems(
     val id: Int,
     val title: String,
-    val imgUrlF: String
+    val image: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -17,7 +17,7 @@ data class FullListItems(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeString(title)
-        parcel.writeString(imgUrlF)
+        parcel.writeString(image)
     }
 
     override fun describeContents(): Int {

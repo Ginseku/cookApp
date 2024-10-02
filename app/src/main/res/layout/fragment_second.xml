@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nes_Scroll_View"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
->
+    app:navGraph="@navigation/nav_graph">
 
     <LinearLayout
         android:id="@+id/liner_l_second_frag"
@@ -31,17 +32,6 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-<!--            <Button-->
-<!--                android:id="@+id/but_see_all"-->
-<!--                style="?android:attr/borderlessButtonStyle"-->
-<!--                android:layout_width="1dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"-->
-<!--                android:gravity="end"-->
-<!--                android:paddingEnd="15dp"-->
-<!--                android:text="See all"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="14sp" />-->
 
         </LinearLayout>
 
@@ -84,13 +74,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false" />
-
-<!--        <Button-->
-<!--            android:id="@+id/button_sec_sreen"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Button" />-->
-
-
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

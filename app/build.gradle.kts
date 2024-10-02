@@ -56,6 +56,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
     //retrofit
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation("com.squareup.retrofit2:retrofit:(2.11.0)")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0") // или Moshi
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
@@ -65,4 +66,13 @@ dependencies {
 
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+
+    // LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+
+    // Для использования ViewModelProvider, если он у тебя используется
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+
 }

@@ -17,7 +17,7 @@ import com.example.cookbook.databinding.FillerPopularBinding
 import com.example.cookbook.databinding.FragmentSecondBinding
 import com.example.cookbook.models.TodayItems
 import com.squareup.picasso.Picasso
-
+//Адаптер который находится сверху(популярное сегодня)
 class TodayListAdapter(private val listener: Listener) :
     RecyclerView.Adapter<TodayListAdapter.TodayListHolder>() {
     var todayList = ArrayList<TodayItems>()
@@ -52,6 +52,7 @@ class TodayListAdapter(private val listener: Listener) :
         val item = todayList[position]
         holder.bind(item)
         holder.itemView.setOnClickListener {
+            Log.d("MyLog", "Item clicked: ${item.id}")
             listener.onClick(item.id)
         }
 

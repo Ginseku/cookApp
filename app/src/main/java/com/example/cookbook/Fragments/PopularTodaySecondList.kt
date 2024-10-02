@@ -14,12 +14,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cookbook.ApiService
+import com.example.cookbook.Listener
 import com.example.cookbook.MovingButton
 import com.example.cookbook.R
 import com.example.cookbook.RetrofitClient
 import com.example.cookbook.adapters.CookingReceptAdapter
+import com.example.cookbook.adapters.FullListAdapter
 import com.example.cookbook.databinding.FillerIngridientsBinding
 import com.example.cookbook.databinding.FragmentPopularTodaySecondScreenBinding
+import com.example.cookbook.models.FullListItems
 import com.example.cookbook.models.InformationInsideView
 import com.example.cookbook.models.IngridientsInside
 import kotlinx.coroutines.CoroutineScope
@@ -32,10 +35,12 @@ class PopularTodaySecondList : Fragment() {
 
     private val apiKey = "6f9b6671250249e793df7f41e9d98194"
     private var isDataLoaded = false
-
     lateinit var binding: FragmentPopularTodaySecondScreenBinding
     lateinit var binding2: FillerIngridientsBinding
     private val adapter = CookingReceptAdapter()
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,8 +55,8 @@ class PopularTodaySecondList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Initially show the progress bar, hide the content
-//        binding.progressBar.visibility = View.VISIBLE
-//        binding.secScreenLayout.visibility = View.GONE
+        binding.progressBar.visibility = View.VISIBLE
+        binding.secScreenLayout.visibility = View.GONE
 
         val recyclerView: RecyclerView = binding.rvSecSreen // Убедитесь, что идентификатор правильный
         recyclerView.adapter = adapter
@@ -118,6 +123,7 @@ class PopularTodaySecondList : Fragment() {
 
                 // Передаем данные в адаптер
                 adapter.setRecept(ingredientsList)
+
 
 
             } catch (e: Exception) {

@@ -33,7 +33,11 @@
         android:name="com.example.cookbook.Fragments.AllListFragment"
         android:label="AllListFragment"
         tools:layout="@layout/all_list_fragment"
-        />
+        >
+        <action
+            android:id="@+id/action_allListFragment_to_popularTodaySecondList"
+            app:destination="@id/popularTodaySecondList" />
+    </fragment>
     <fragment
         android:id="@+id/popularTodaySecondList"
         android:name="com.example.cookbook.Fragments.PopularTodaySecondList"

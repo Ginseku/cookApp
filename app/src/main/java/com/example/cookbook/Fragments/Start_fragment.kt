@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.cookbook.R
 import com.example.cookbook.databinding.StartFragmentBinding
 
@@ -24,12 +25,8 @@ class Start_fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.startScreenButton.setOnClickListener {
-            // При нажатии кнопки переключаемся на новый фрагмент
-            childFragmentManager.beginTransaction()
-                .replace(R.id.constraint_l_first_frag, SecondFragment())
-                .addToBackStack(null)
-                .commit()
+            // При нажатии кнопки переключаемся на новый фрагмент с помощью NavController
+            findNavController().navigate(R.id.action_start_fragment_to_second_fragment2)
         }
-
     }
 }
