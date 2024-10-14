@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="start_screen">#FB8C00</color>
     <color name="second_bg_color">#F1D9BB</color>
+    <color name="button_color">#FDBA66</color>
 
 </resources>

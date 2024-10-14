@@ -68,7 +68,8 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     // ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-
+    // ViewModel and LiveData for MVVM architecture
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
     // LiveData
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
 

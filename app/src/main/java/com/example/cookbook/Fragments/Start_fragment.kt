@@ -26,7 +26,7 @@ class Start_fragment : Fragment() {
 
         binding.startScreenButton.setOnClickListener {
             // При нажатии кнопки переключаемся на новый фрагмент с помощью NavController
-            findNavController().navigate(R.id.action_start_fragment_to_second_fragment2)
+            findNavController().navigate(R.id.action_start_fragment_to_authorizationFragment)
         }
     }
 }

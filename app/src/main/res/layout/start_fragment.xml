@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/start_screen"
     app:navGraph="@navigation/nav_graph"
+    android:name="androidx.navigation.fragment.NavHostFragment"
     tools:context=".Fragments.Start_fragment">
 
 

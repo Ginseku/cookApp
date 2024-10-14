@@ -10,9 +10,10 @@
         android:name="com.example.cookbook.Fragments.Start_fragment"
         android:label="page_one_fragment"
         tools:layout="@layout/start_fragment" >
+
         <action
-            android:id="@+id/action_start_fragment_to_second_fragment2"
-            app:destination="@id/second_fragment" />
+            android:id="@+id/action_start_fragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment" />
     </fragment>
 
     <fragment
@@ -43,5 +44,14 @@
         android:name="com.example.cookbook.Fragments.PopularTodaySecondList"
         android:label="PopularTodaySecondList"
         tools:layout="@layout/fragment_popular_today_second_screen"/>
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.example.cookbook.Fragments.AuthorizationFragment"
+        android:label="fragment_authorization"
+        tools:layout="@layout/fragment_authorization" >
+        <action
+            android:id="@+id/action_authorizationFragment_to_second_fragment"
+            app:destination="@id/second_fragment" />
+    </fragment>
 
 </navigation>
