@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -75,5 +76,13 @@ dependencies {
 
     // Для использования ViewModelProvider, если он у тебя используется
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-auth")
+
 
 }

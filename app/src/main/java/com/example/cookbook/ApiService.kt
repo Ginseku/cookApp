@@ -24,14 +24,6 @@ interface ApiService {
     fun  getAllRecept(@Query("apiKey") apikey: String, @Query("number") number: Int): Call<RecipeResponse>
 
 
-    @POST("login.php")
-    fun loginUsers(@Body userData: LoginCredentials
-    ) : Call<ResponseBody>
-
-
-    @POST("register.php")
-    fun registerUsers(@Body userData: UserData
-    ) : Call<ResponseBody>
 }
 
 
